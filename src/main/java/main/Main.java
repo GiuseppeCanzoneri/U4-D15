@@ -18,38 +18,40 @@ public class Main {
 
         // Aggiunta di un elemento al catalogo
         Libro libro = new Libro();
-        libro.setIsbn("32988372256");
-        libro.setTitolo("Test");
-        libro.setAnnoPubblicazione(2020);
-        libro.setNumeroPagine(192 );
-        libro.setAutore("test");
-        libro.setGenere("test");
+        libro.setIsbn("32988372256093");
+        libro.setTitolo("Libro prestito scaduto veramente");
+        libro.setAnnoPubblicazione(2021);
+        libro.setNumeroPagine(129 );
+        libro.setAutore("Autore scaduto veramente");
+        libro.setGenere("brutto");
         catalogoDAO.aggiungiElemento(libro);
 
         // Rimozione di un elemento dal catalogo dato il codice ISBN
-//        catalogoDAO.rimuoviElemento("1234567890");
-
+       catalogoDAO.rimuoviElemento("32988372256");
+       System.out.println("-------------------------");
         // Ricerca per ISBN
-        ElementoCatalogo elemento = catalogoDAO.cercaPerISBN("32988372256");
+        ElementoCatalogo elemento = catalogoDAO.cercaPerISBN("3298837225609");
         if (elemento != null) {
             System.out.println("Elemento trovato: " + elemento.getTitolo());
         } else {
             System.out.println("Elemento non trovato.");
         }
-
+        System.out.println("-------------------------");
+        
         // Ricerca per anno di pubblicazione
-        List<ElementoCatalogo> elementiPerAnno = catalogoDAO.cercaPerAnnoPubblicazione(2020);
-        System.out.println("Elementi per anno di pubblicazione (2020):");
+        List<ElementoCatalogo> elementiPerAnno = catalogoDAO.cercaPerAnnoPubblicazione(2021);
+        System.out.println("Elementi per anno di pubblicazione (2021):");
         for (ElementoCatalogo elemento1 : elementiPerAnno) {
             System.out.println(elemento1.getTitolo());
         }
-
+        System.out.println("-------------------------");
+        
         List<ElementoCatalogo> elementiPerAutore = catalogoDAO.cercaPerAutore("Tolkien");
         System.out.println("Elementi per autore (Tolkien):");
         for (ElementoCatalogo elemento1 : elementiPerAutore) {
             System.out.println(elemento1.getTitolo());
         }
-
+        System.out.println("-------------------------");
         List<ElementoCatalogo> elementiPerTitolo = catalogoDAO.cercaPerTitolo("Il signore degli anelli");
         System.out.println("Elementi per titolo (Il signore degli anelli):");
         for (ElementoCatalogo elemento1 : elementiPerTitolo) {
@@ -59,14 +61,14 @@ public class Main {
 
         // Aggiunta di un utente
         Utente utente = new Utente();
-        utente.setNumeroTessera("0005");
-        utente.setNome("Babrizio");
-        utente.setCognome("Rossi");
-        utente.setDataNascita(LocalDate.of(1990, 1, 1));
+        utente.setNumeroTessera("0004");
+        utente.setNome("Flavio");
+        utente.setCognome("Marrone");
+        utente.setDataNascita(LocalDate.of(2002, 1, 1));
         utenteDAO.aggiungiUtente(utente);
-
+        System.out.println("-------------------------");
      // Ricerca di un utente per numero di tessera
-        Utente utenteTrovato = utenteDAO.cercaUtentePerNumeroTessera("0005");
+        Utente utenteTrovato = utenteDAO.cercaUtentePerNumeroTessera("0001");
         if (utenteTrovato != null) {
             System.out.println("Utente trovato:");
             System.out.println("Numero tessera: " + utenteTrovato.getNumeroTessera());
@@ -76,11 +78,11 @@ public class Main {
         } else {
             System.out.println("Utente non trovato per il numero di tessera specificato.");
         }
-
+        System.out.println("-------------------------");
         // Ricerca di utenti per nome
-        List<Utente> utentiPerNome = utenteDAO.cercaUtentiPerNome("Mario");
+        List<Utente> utentiPerNome = utenteDAO.cercaUtentiPerNome("Luca");
         if (!utentiPerNome.isEmpty()) {
-            System.out.println("Utenti trovati per nome (Mario):");
+            System.out.println("Utenti trovati per nome (Luca):");
             for (Utente utente1 : utentiPerNome) {
                 System.out.println("Numero tessera: " + utente1.getNumeroTessera());
                 System.out.println("Nome: " + utente1.getNome());
@@ -91,11 +93,12 @@ public class Main {
         } else {
             System.out.println("Nessun utente trovato per il nome specificato.");
         }
-
+        System.out.println("-------------------------");
+        
         // Ricerca di utenti per cognome
-        List<Utente> utentiPerCognome = utenteDAO.cercaUtentiPerCognome("Rossi");
+        List<Utente> utentiPerCognome = utenteDAO.cercaUtentiPerCognome("Argento");
         if (!utentiPerCognome.isEmpty()) {
-            System.out.println("Utenti trovati per cognome (Rossi):");
+            System.out.println("Utenti trovati per cognome (Argento):");
             for (Utente utente1 : utentiPerCognome) {
                 System.out.println("Numero tessera: " + utente1.getNumeroTessera());
                 System.out.println("Nome: " + utente1.getNome());
@@ -113,12 +116,12 @@ public class Main {
         prestito.setUtente(utente);
         prestito.setElementoPrestato(libro);
         prestito.setDataInizioPrestito(LocalDate.now());
-        prestito.setDataRestituzionePrevista(LocalDate.now().plusDays(30));
+        prestito.setDataRestituzionePrevista(LocalDate.of(2023, 5, 17));
         prestitoDAO.aggiungiPrestito(prestito);
 
         Long idElemento = 1L; // Esempio di identificatore di un elemento da restituire
         prestitoDAO.restituisciElemento(idElemento);
-
+        System.out.println("-------------------------");
      // Ricerca dei prestiti per utente
         List<Prestito> prestitiPerUtente = prestitoDAO.ricercaPrestitiPerUtente("0004");
         if (!prestitiPerUtente.isEmpty()) {
@@ -134,6 +137,8 @@ public class Main {
             System.out.println("Nessun prestito trovato per l'utente con numero di tessera 0004.");
         }
 
+        System.out.println("-------------------------");
+        
         // Ricerca dei prestiti scaduti e non ancora restituiti
         List<Prestito> prestitiScaduti = prestitoDAO.ricercaPrestitiScaduti();
         if (!prestitiScaduti.isEmpty()) {
