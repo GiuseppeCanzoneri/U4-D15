@@ -18,19 +18,19 @@ public class Main {
 
         // Aggiunta di un elemento al catalogo
         Libro libro = new Libro();
-        libro.setIsbn("32988372256093");
-        libro.setTitolo("Libro prestito scaduto veramente");
+        libro.setIsbn("3298");
+        libro.setTitolo("Tutto sui panini");
         libro.setAnnoPubblicazione(2021);
         libro.setNumeroPagine(129 );
-        libro.setAutore("Autore scaduto veramente");
-        libro.setGenere("brutto");
+        libro.setAutore("Nizar Carlons");
+        libro.setGenere("Panini");
         catalogoDAO.aggiungiElemento(libro);
 
         // Rimozione di un elemento dal catalogo dato il codice ISBN
        catalogoDAO.rimuoviElemento("32988372256");
        System.out.println("-------------------------");
         // Ricerca per ISBN
-        ElementoCatalogo elemento = catalogoDAO.cercaPerISBN("3298837225609");
+        ElementoCatalogo elemento = catalogoDAO.cercaPerISBN("3298");
         if (elemento != null) {
             System.out.println("Elemento trovato: " + elemento.getTitolo());
         } else {
@@ -46,8 +46,8 @@ public class Main {
         }
         System.out.println("-------------------------");
         
-        List<ElementoCatalogo> elementiPerAutore = catalogoDAO.cercaPerAutore("Tolkien");
-        System.out.println("Elementi per autore (Tolkien):");
+        List<ElementoCatalogo> elementiPerAutore = catalogoDAO.cercaPerAutore("Nizar Carlons");
+        System.out.println("Elementi per autore (Nizar Carlons):");
         for (ElementoCatalogo elemento1 : elementiPerAutore) {
             System.out.println(elemento1.getTitolo());
         }
@@ -61,14 +61,14 @@ public class Main {
 
         // Aggiunta di un utente
         Utente utente = new Utente();
-        utente.setNumeroTessera("0004");
-        utente.setNome("Flavio");
+        utente.setNumeroTessera("0005");
+        utente.setNome("Eleonora");
         utente.setCognome("Marrone");
-        utente.setDataNascita(LocalDate.of(2002, 1, 1));
+        utente.setDataNascita(LocalDate.of(2003, 3, 3));
         utenteDAO.aggiungiUtente(utente);
         System.out.println("-------------------------");
      // Ricerca di un utente per numero di tessera
-        Utente utenteTrovato = utenteDAO.cercaUtentePerNumeroTessera("0001");
+        Utente utenteTrovato = utenteDAO.cercaUtentePerNumeroTessera("0005");
         if (utenteTrovato != null) {
             System.out.println("Utente trovato:");
             System.out.println("Numero tessera: " + utenteTrovato.getNumeroTessera());
@@ -80,9 +80,9 @@ public class Main {
         }
         System.out.println("-------------------------");
         // Ricerca di utenti per nome
-        List<Utente> utentiPerNome = utenteDAO.cercaUtentiPerNome("Luca");
+        List<Utente> utentiPerNome = utenteDAO.cercaUtentiPerNome("Eleonora");
         if (!utentiPerNome.isEmpty()) {
-            System.out.println("Utenti trovati per nome (Luca):");
+            System.out.println("Utenti trovati per nome (Eleonora):");
             for (Utente utente1 : utentiPerNome) {
                 System.out.println("Numero tessera: " + utente1.getNumeroTessera());
                 System.out.println("Nome: " + utente1.getNome());
